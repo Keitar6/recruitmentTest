@@ -19,16 +19,31 @@ export const CustomModal = (props: CustomModalProps) => {
   const { product } = props;
   const { name, color } = product;
 
-  const baseId = `${name} modal - `;
+  const IDS = {
+    title: `${name} modal - title`,
+    description: `${name} modal - description`,
+  };
 
   return (
-    <Modal {...props} aria-labelledby={baseId} aria-describedby={baseId}>
+    <Modal {...props} aria-labelledby={IDS.title} aria-describedby={IDS.description}>
       <Box sx={style({ color })}>
-        <Typography id={baseId} sx={{ mt: 2 }}>
+        <Typography id={IDS.title} variant='h6' component='h2'>
+          All you need to know about{' '}
+          <Typography id={IDS.title + `/name`} variant='h6' component='textPath' sx={{ color }}>
+            {name}
+          </Typography>
+        </Typography>
+
+        <Typography id={IDS.description} sx={{ mt: 2 }}>
           {Object.entries(product).map(([name, value]) => (
             <>
               {capitalizeFirstLetter(name)}:{' '}
-              <Typography id={baseId + name} variant='h6' component='textPath' sx={{ color }}>
+              <Typography
+                id={IDS.description + `/` + name}
+                variant='h6'
+                component='textPath'
+                sx={{ color }}
+              >
                 {value}
               </Typography>
               <br />
