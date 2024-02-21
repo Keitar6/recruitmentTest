@@ -34,7 +34,7 @@ export const useProductsTable = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>();
   const [currentPage, setCurrentPage] = useState(parseInt(query.get('page') || '1', 10));
   const id = query.get('id');
-  const [notification, setNotification] = useState<string | null>(null); 
+  const [notification, setNotification] = useState<string | null>(null);
 
   const totalPages = Math.ceil(productsQuantity / 5);
   const maxProductsForPage = 5;

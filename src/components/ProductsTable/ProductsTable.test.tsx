@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-import * as useProductsTableModule from '@utils/hooks/useProductsTable'; // Adjust the import path as needed
+import * as useProductsTableModule from '@utils/hooks/useProductsTable';
 import { Product } from '@store/reducers/products/slice';
 import ProductsTable from './';
 
@@ -27,12 +27,6 @@ const mockUseProductsTable: useProductsTableModule.UseProductsTableReturn = {
 };
 
 describe('ProductsTable', () => {
-  beforeEach(() => {
-    vi.spyOn(useProductsTableModule, 'useProductsTable').mockReturnValue(
-      mockUseProductsTable as any,
-    );
-  });
-
   it('renders products correctly', () => {
     render(<ProductsTable />);
     expect(screen.getByText('Product 1')).toBeInTheDocument();

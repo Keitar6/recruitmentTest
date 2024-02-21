@@ -11,7 +11,9 @@ export const rootReducer = combineReducers({
 });
 
 export const rootMiddleware = (getDefaultMiddleware: any) =>
-  getDefaultMiddleware().concat(process.env.NODE_ENV === 'development' && loggerMiddleware);
+  process.env.NODE_ENV === 'development'
+    ? getDefaultMiddleware().concat(loggerMiddleware)
+    : getDefaultMiddleware();
 
 export type RootState = ReturnType<typeof rootReducer>;
 
