@@ -18,7 +18,13 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'html'],
-      exclude: ['./node_modules/'],
+      exclude: [
+        './node_modules/',
+        './.eslintrc.cjs',
+        './src/store/',
+        './src/main.tsx',
+        './src/App.tsx',
+      ],
     },
     mockReset: true,
   },
