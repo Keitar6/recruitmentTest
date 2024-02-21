@@ -1,6 +1,6 @@
 import { Modal, Box, Typography, ModalProps, SxProps } from '@mui/material';
 import { Product } from '@store/reducers/products/slice';
-import { capitalizeFirstLetter } from 'utils/functions/capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '@utils/functions/capitalizeFirstLetter';
 
 const style: (args: { color?: string }) => SxProps = () => ({
   position: 'absolute' as 'absolute',

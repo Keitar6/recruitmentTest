@@ -32,9 +32,6 @@ const initialState: ProductState = {
 
 type FetchProductsProps = {
   page: number;
-  totalPageNumber: number;
-  productsQuantity: number;
-  productsPerPage: number;
   maxProductsForPage: number;
 };
 
@@ -43,6 +40,7 @@ export const fetchProducts = createAsyncThunk(
   async ({ page, maxProductsForPage }: FetchProductsProps) => {
     const apiData: DataFromApi = (await axios.get(baseProductsApiURL + `/products?page=${page}`))
       .data;
+
     const productsForPage: Product[] = [];
     const { total } = apiData;
     const initProdNumberForPage = (page ? maxProductsForPage * (page - 1) : 0) + 1;
