@@ -4,19 +4,27 @@ import axios from 'axios';
 
 const baseProductsApiURL = 'https://reqres.in/api';
 
+export type StatusVariants = 'idle' | 'loading' | 'failed';
+
 type DataFromApi = {
   data: Product[];
-  status: 'idle' | 'loading' | 'failed';
+  status: StatusVariants;
   per_page: number;
   total_pages: number;
   total: number;
 };
 
-export type Product = { id: 2; name: string; year: 2001; color: string; pantone_value: string };
+export type Product = {
+  id: number;
+  name: string;
+  year: number;
+  color: string;
+  pantone_value: string;
+};
 
-type ProductState = {
+export type ProductState = {
   products: Product[];
-  status: 'idle' | 'loading' | 'failed';
+  status: StatusVariants;
   totalPageNumber: number;
   productsQuantity: number;
   productsPerPage: number;

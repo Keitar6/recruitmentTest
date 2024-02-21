@@ -15,7 +15,7 @@ export const rootMiddleware = (getDefaultMiddleware: any) =>
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const storeInit = (preloadedState?: PreloadedStateShapeFromReducersMapObject<RootState>) =>
+export const storeInit = (preloadedState?: PreloadedStateShapeFromReducersMapObject<RootState>) =>
   configureStore({
     reducer: rootReducer,
     middleware: rootMiddleware,

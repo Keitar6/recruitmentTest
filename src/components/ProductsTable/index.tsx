@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { Tag } from '@mui/icons-material';
 
-import { CustomModal } from './CustomModal';
+import { CustomModal } from '../CustomModal';
 import { useProductsTable } from '@utils/hooks/useProductsTable';
 
 const ProductsTable = () => {
@@ -61,12 +61,12 @@ const ProductsTable = () => {
             <CircularProgress color='success' />
           ) : (
             <TableBody>
-              {products.map((product) => {
+              {products.map((product, index) => {
                 const { id, name, year, color } = product;
                 return (
                   <TableRow
                     onClick={() => handleOpen(product)}
-                    key={id + '-' + name}
+                    key={index + '-' + name}
                     sx={{
                       '&:last-child td, &:last-child th': { border: 0 },
                       backgroundColor: color,
@@ -95,9 +95,7 @@ const ProductsTable = () => {
       />
 
       {selectedProduct ? (
-        <CustomModal product={selectedProduct} open={open} onClose={handleClose}>
-          <div>''</div>
-        </CustomModal>
+        <CustomModal product={selectedProduct} open={open} onClose={handleClose} />
       ) : null}
     </>
   );

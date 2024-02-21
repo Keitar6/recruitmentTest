@@ -3,21 +3,34 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { debounce } from '@mui/material';
 import {
   Product,
+  StatusVariants,
   fetchProductById,
   fetchProducts,
   selectProductsList,
 } from '@store/reducers/products/slice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
- 
-const useQuery = () => new URLSearchParams(useLocation().search);
+
+export type UseProductsTableReturn = {
+  products: Product[];
+  status: StatusVariants;
+  totalPages: number;
+  currentPage: number;
+  id: string | null;
+  open: boolean;
+  selectedProduct: Product | null;
+  handleOpen: () => void;
+  handleClose: () => void;
+  handleChangePage: (_event: ChangeEvent<unknown>, page: number) => void;
+  handleFilterChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+};
 
 export const useProductsTable = () => {
   const dispatch = useAppDispatch();
-  const query = useQuery();
+  const query = new URLSearchParams(useLocation().search);
   const navigate = useNavigate();
   const { products, status, productsQuantity } = useAppSelector(selectProductsList);
   const [open, setOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>();
   const [currentPage, setCurrentPage] = useState(parseInt(query.get('page') || '1', 10));
   const id = query.get('id');
 
@@ -42,9 +55,9 @@ export const useProductsTable = () => {
 
   const handleClose = () => setOpen(false);
 
-  const handleChangePage = (_event: ChangeEvent<unknown>, newPage: number) => {
-    setCurrentPage(newPage);
-    navigate(`?page=${newPage}${id ? `&id=${id}` : ''}`);
+  const handleChangePage = (_event: ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+    navigate(`?page=${page}${id ? `&id=${id}` : ''}`);
   };
 
   const handleFilterChange = debounce(

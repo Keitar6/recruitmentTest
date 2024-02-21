@@ -13,7 +13,7 @@ const style: (args: { color?: string }) => SxProps = () => ({
   p: 4,
 });
 
-type CustomModalProps = ModalProps & { product: Product };
+export type CustomModalProps = Omit<ModalProps, 'children'> & { product: Product };
 
 export const CustomModal = (props: CustomModalProps) => {
   const { product } = props;
@@ -25,7 +25,12 @@ export const CustomModal = (props: CustomModalProps) => {
   };
 
   return (
-    <Modal {...props} aria-labelledby={IDS.title} aria-describedby={IDS.description}>
+    <Modal
+      {...props}
+      aria-labelledby={IDS.title}
+      aria-describedby={IDS.description}
+      data-testid='dialog'
+    >
       <Box sx={style({ color })}>
         <Typography id={IDS.title} variant='h6' component='h2'>
           All you need to know about{' '}
