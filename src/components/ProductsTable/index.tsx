@@ -11,6 +11,7 @@ import {
   TextField,
   debounce,
   CircularProgress,
+  Snackbar,
 } from '@mui/material';
 import { Tag } from '@mui/icons-material';
 
@@ -25,15 +26,27 @@ const ProductsTable = () => {
     currentPage,
     open,
     selectedProduct,
+    id,
+    notification,
     handleOpen,
     handleClose,
     handleChangePage,
     handleFilterChange,
-    id,
   } = useProductsTable();
 
   return (
     <>
+      <Snackbar
+        open={Boolean(notification)}
+        autoHideDuration={6000}
+        onClose={(_event: any, reason: any) => {
+          if (reason === 'clickaway') {
+            return;
+          }
+        }}
+        message={notification}
+      />
+
       <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 1 }}>
         <Tag sx={{ mr: 1, my: 0.5 }} color='success' />
         <TextField

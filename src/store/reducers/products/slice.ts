@@ -28,6 +28,7 @@ export type ProductState = {
   totalPageNumber: number;
   productsQuantity: number;
   productsPerPage: number;
+  errorMessage: string | null;
 };
 
 const initialState: ProductState = {
@@ -36,6 +37,7 @@ const initialState: ProductState = {
   totalPageNumber: 0,
   productsQuantity: 0,
   productsPerPage: 0,
+  errorMessage: null,
 };
 
 type FetchProductsProps = {
@@ -82,6 +84,7 @@ export const productsSlice = createSlice({
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.status = 'loading';
+        state.errorMessage = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         const { total, per_page, total_pages, data } = action.payload;
@@ -91,11 +94,13 @@ export const productsSlice = createSlice({
         state.productsQuantity = total;
         state.totalPageNumber = total_pages;
       })
-      .addCase(fetchProducts.rejected, (state) => {
+      .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';
+        state.errorMessage = action.error.message || 'Failed to fetch products';
       })
       .addCase(fetchProductById.pending, (state) => {
         state.status = 'loading';
+        state.errorMessage = null;
       })
       .addCase(fetchProductById.fulfilled, (state, action) => {
         const { data } = action.payload;
@@ -104,8 +109,9 @@ export const productsSlice = createSlice({
         state.productsQuantity = 1;
         state.totalPageNumber = 1;
       })
-      .addCase(fetchProductById.rejected, (state) => {
+      .addCase(fetchProductById.rejected, (state, action) => {
         state.status = 'failed';
+        state.errorMessage = action.error.message || 'Failed to fetch product by ID';
       });
   },
 });

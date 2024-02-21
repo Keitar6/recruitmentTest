@@ -18,6 +18,7 @@ export type UseProductsTableReturn = {
   id: string | null;
   open: boolean;
   selectedProduct: Product | null;
+  notification: string | null;
   handleOpen: () => void;
   handleClose: () => void;
   handleChangePage: (_event: ChangeEvent<unknown>, page: number) => void;
@@ -28,14 +29,22 @@ export const useProductsTable = () => {
   const dispatch = useAppDispatch();
   const query = new URLSearchParams(useLocation().search);
   const navigate = useNavigate();
-  const { products, status, productsQuantity } = useAppSelector(selectProductsList);
+  const { products, status, productsQuantity, errorMessage } = useAppSelector(selectProductsList);
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>();
   const [currentPage, setCurrentPage] = useState(parseInt(query.get('page') || '1', 10));
   const id = query.get('id');
+  const [notification, setNotification] = useState<string | null>(null); 
 
   const totalPages = Math.ceil(productsQuantity / 5);
   const maxProductsForPage = 5;
+
+  useEffect(() => {
+    if (status === 'failed' && errorMessage) {
+      setNotification(`Error fetching products: ${errorMessage}`);
+      setTimeout(() => setNotification(null), 3000);
+    }
+  }, [status, errorMessage]);
 
   useEffect(() => {
     if (id) dispatch<any>(fetchProductById(+id));
@@ -75,10 +84,11 @@ export const useProductsTable = () => {
     currentPage,
     open,
     selectedProduct,
+    id,
+    notification,
     handleOpen,
     handleClose,
     handleChangePage,
     handleFilterChange,
-    id,
   };
 };

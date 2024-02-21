@@ -23,6 +23,7 @@ const mockUseProductsTable: useProductsTableModule.UseProductsTableReturn = {
   handleChangePage: vi.fn(),
   handleFilterChange: vi.fn(),
   id: '',
+  notification: null,
 };
 
 describe('ProductsTable', () => {
