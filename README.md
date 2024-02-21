@@ -1,6 +1,6 @@
 # Codibly Test - Statkiewicz Mateusz
 
-This project, codibly-test, is a React-based Single Page Application (SPA) designed to showcase a paginated list of products fetched from an API. It employs React for the frontend, Redux Toolkit for state management, Material-UI for styling, and Vitest for testing. The project is set up with Vite as the build tool and TypeScript for type safety.
+This codibly-test project is a React-based Single Page Application (SPA) designed to showcase a paginated list of products fetched from an API. It employs React for the front end, Redux Toolkit for state management, Material-UI for styling, and Vitest for testing. The project is set up with Vite as the build tool and TypeScript for type safety.
 
 ## Features
 
@@ -25,7 +25,7 @@ Follow these steps to set up the project locally:
 1. Clone the repository:
 
    ```bash
-   git clone https://your-repository-url.git codibly-test
+   git clone https://github.com/Keitar6/recruitmentTest.git
 
    ```
 
