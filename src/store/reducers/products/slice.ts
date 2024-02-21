@@ -2,8 +2,10 @@ import type { RootState } from '@store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+export type Product = { id: 2; name: string; year: 2001; color: string; pantone_value: string };
+
 type ProductState = {
-  products: { id: 2; name: string; year: 2001; color: string; pantone_value: string }[];
+  products: Product[];
   status: 'idle' | 'loading' | 'failed';
 };
 
