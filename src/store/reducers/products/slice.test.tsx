@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { productsReducer, fetchProducts, fetchProductById } from './slice';
+import { productsReducer, fetchProducts, fetchProductById, ProductState } from './slice';
 
 const mock = new MockAdapter(axios);
 const baseProductsApiURL = 'https://reqres.in/api';
@@ -33,18 +33,20 @@ describe('productsReducer', () => {
       totalPageNumber: 0,
       productsQuantity: 0,
       productsPerPage: 0,
-    });
+      errorMessage: null,
+    } as ProductState);
   });
 
   it('handles fetchProducts/pending action', () => {
     const action = { type: fetchProducts.pending.type };
     const initialState = undefined;
-    const expectedState = {
+    const expectedState: ProductState = {
       products: [],
       status: 'loading',
       totalPageNumber: 0,
       productsQuantity: 0,
       productsPerPage: 0,
+      errorMessage: null,
     };
     expect(productsReducer(initialState, action)).toEqual(expectedState);
   });
@@ -91,12 +93,13 @@ describe('productsReducer', () => {
   it('handles fetchProductById/pending action', () => {
     const action = { type: fetchProductById.pending.type };
     const initialState = undefined;
-    const expectedState = {
+    const expectedState: ProductState = {
       products: [],
       status: 'loading',
       totalPageNumber: 0,
       productsQuantity: 0,
       productsPerPage: 0,
+      errorMessage: null,
     };
     expect(productsReducer(initialState, action)).toEqual(expectedState);
   });
