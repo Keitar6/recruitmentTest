@@ -28,6 +28,9 @@ const mockUseProductsTable: useProductsTableModule.UseProductsTableReturn = {
 
 describe('ProductsTable', () => {
   it('renders products correctly', () => {
+    vi.spyOn(useProductsTableModule, 'useProductsTable').mockReturnValue(
+      mockUseProductsTable as any,
+    );
     render(<ProductsTable />);
     expect(screen.getByText('Product 1')).toBeInTheDocument();
     expect(screen.getByText('Product 2')).toBeInTheDocument();
